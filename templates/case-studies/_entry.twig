@@ -1,0 +1,123 @@
+{% extends '_layout' %}
+
+{% set featuredImage = entry.featuredImage.one() %}
+
+{% block content %}
+<header class="case-studies">
+
+<div class="headline">
+  <div class="sub">{{ entry.title }}</div>
+{{ entry.subtitle }}
+    
+  </div>
+  
+
+  
+</header>
+
+<main class="post-content">
+  
+  {# Load content blocks: #}
+{% set postContent = entry.postContent.all() %}
+  
+  {% for contentBlock in postContent %}
+    {# Memoize the block type’s handle so we can use it later: #}
+    {% set blockType = contentBlock.type.handle %}
+
+    {# Switch what is displayed based on the `type`: #}
+    {% if blockType == 'fullWidthImage' %}
+  {% set image = contentBlock.image.one() %}
+<section class="entry-piece img-full revealing-image">
+  <div class="inner-wrap img-wrap"><img src="{{ image.url }}"></div>
+</section>
+  
+  
+    {% elseif blockType == 'twoHalvedText' %}
+
+<section class="entry-piece txt-2-half revealing-image">
+  <div class="left">
+    <h3>{{ contentBlock.leftTitle | md(inlineOnly = true) }}</h3>
+    <p>{{ contentBlock.leftContent | md(inlineOnly = true) }}</p>
+  </div>
+  <div class="right">
+      <h3>{{ contentBlock.rightTitle | md(inlineOnly = true) }}</h3>
+    <p>{{ contentBlock.rightContent | md(inlineOnly = true) }}</p>
+  </div>
+</section>
+  
+      {% elseif blockType == 'imageTextInset' %}
+
+<section class="entry-piece img-txt-inset revealing-image">
+  <div class="left">
+    {% set leftImage = contentBlock.leftImage.one() %}
+    {% set rightImage = contentBlock.rightImage.one() %}
+    <div class="img-wrap"><img src="{{ leftImage.url }}"></div>
+    <div class="txt">
+          <h3>{{ contentBlock.leftTitle | md(inlineOnly = true) }}</h3>
+    <p>{{ contentBlock.leftContent | md }}</p>
+    </div>
+  </div>
+  
+  <div class="right">
+    <div class="img-wrap"><img src="{{ rightImage.url }}"></div>
+  </div>
+  
+  
+</section>
+  
+      {% elseif blockType == 'textBigFull' %}
+
+<section class="entry-piece txt-big-full revealing-image"><div class="inner-wrap"><p>{{ contentBlock.textBigFull | md(inlineOnly = true) }}</p></div></section>
+  
+      {% elseif blockType == 'imageGrid' %}
+
+
+<section class="entry-piece txt-img-grid revealing-image">
+  
+      {% set leftImage = contentBlock.leftImage.one() %}
+    {% set rightImage = contentBlock.rightImage.one() %}
+    {% set rightImage2 = contentBlock.rightImage2.one() %}
+
+  <div class="left">
+    <div class="img-wrap"><img src="{{ leftImage.url }}"></div>
+  </div>
+  
+  <div class="right">
+    <div class="img-wrap"><img src="{{ rightImage.url }}"></div>
+    <div class="img-wrap"><img src="{{ rightImage2.url }}"></div>
+  </div>
+  
+</section>
+  
+      {% elseif blockType == 'onehalvedtext' %}
+
+<section class="entry-piece txt-1-half revealing-image">
+<div class="left">
+    <div class="txt">
+          <h3>{{ contentBlock.leftTitle | md(inlineOnly = true) }}</h3>
+    <p>{{ contentBlock.leftContent | md(inlineOnly = true) }}</p>
+    </div>
+  </div>
+</section>
+  
+  
+    {% else %}
+      <div class="content-block unsupported">
+        <p>Unsupported block type: <code>{{ blockType }}</code></p>
+      </div>
+    {% endif %}
+  {% else %}
+    {# `for` tags also support an `else` block for when there’s no content! #}
+
+    <div class="content-block empty">
+      <p>This post has no content!</p>
+    </div>
+  {% endfor %}
+  
+</main>
+
+
+
+
+
+{% endblock %}

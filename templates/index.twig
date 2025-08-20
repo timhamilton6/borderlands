@@ -1,0 +1,45 @@
+
+{% extends '_layout' %}
+
+
+{% block content %}
+
+<header>
+
+<div class="headline home">
+ <h1>Howdy! I'm<br>Tim Hamilton,</h1>
+    <div class="sub">and <span class="emph">I solve /design problems</span>.</div>
+  </div>
+  
+  <div class="text">
+    With thirteen-plus years of design under my <s>belt</s> baseball cap, I take on a plethora of roles to lead with efficient discovery, quick iteration, and speed to market, using product <span class="emph">&amp;</span> strategy <span class="emph">&amp;</span> web <span class="emph">&amp;</span> visual <span class="emph">&amp;</span> copy <span class="emph">&amp;</span> motion <span class="emph">&amp;</span> illustration <span class="emph">&amp;</span> code. (<span class="emph">&amp;</span> sometimes guitars.)
+  </div>
+</header>
+
+<img class="tjh" src="assets/tjh.png">
+
+<h2 class="revealing-image">Case studies.</h2>
+
+ <section class="case-studies">
+
+     {% set posts = craft.entries().section('caseStudies').all() %}
+     
+     {% for post in posts %}
+    {% set image = post.featuredImage.one() %}
+
+    <div class="single-study revealing-image">
+              <div class="study-txt">
+        <h3>{{ post.title }}</h3>
+{{ post.summary | md }}
+        <a class="button" href="{{ post.url }}">See More</a>
+      </div>
+         {% if image %}
+        <div class="study-img">{{ image.getImg() }}</div>
+        {% endif %}
+
+    </div>
+  {% endfor %}
+     
+     </section>
+{% endblock %}
+    

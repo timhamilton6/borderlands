@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ craft.app.language }}">
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ siteName }}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <meta property="og:type" content="website">
+<meta property="og:title" content="Tim Hamilton | Multi-Disciplinary Designer">
+<meta property="og:url" content="https://www.thegreathambino.co">
+<meta property="og:image" content="https://www.thegreathambino.co/assets/screenshot331.jpg">
+<meta property="og:description" content="With thirteen-plus years of design under my baseball cap, I take on a plethora of roles to lead with efficient discovery, quick iteration, and speed to market, using product & strategy & web & visual & copy & motion & illustration & code. ">
+
+    {% do craft.app.view.registerCssFile('@web/style.css') %}
+  </head>
+  <body>
+      <div class="media fadeInUp-animation">Reading: 3 Shades of Blue by James Kaplan <span class="emph">&bull;</span> Listening: End by Explosions in the Sky <span class="emph">&bull;</span> Watching: old Kurosawa movies</div>
+      <div class="container fadeInUp-animation">
+
+          {% include "_nav.twig" %}
+        
+        {% block content %}
+        {# Nothing here, yet! #}
+        {% endblock %}
+      
+          <footer>
+          <img src="/assets/footer-logo.png">
+              <p><span class="emph">Thanks for stopping by!</span><br>
+                  I built this using <a href="https://craftcms.com/">Craft CMS!</a></p>
+          </footer>
+          
+      </div>
+
+  </body>
+</html>
